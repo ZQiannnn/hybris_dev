@@ -1,0 +1,6 @@
+
+			<!-- 'smarteditwebservices' extension's context for tenant 'master' -->
+			<Context path="/smarteditwebservices" docBase="${PLATFORM_HOME}/../ext-content/smarteditwebservices/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

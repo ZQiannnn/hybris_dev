@@ -1,0 +1,6 @@
+
+			<!-- 'backoffice' extension's context for tenant 'master' -->
+			<Context path="/backoffice" docBase="${PLATFORM_HOME}/../ext-backoffice/backoffice/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

@@ -1,0 +1,6 @@
+
+			<!-- 'processing' extension's context for tenant 'master' -->
+			<Context path="/processing" docBase="${PLATFORM_HOME}/ext/processing/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

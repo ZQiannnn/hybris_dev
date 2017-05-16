@@ -1,0 +1,6 @@
+
+			<!-- 'yacceleratorstorefront' extension's context for tenant 'master' -->
+			<Context path="/yacceleratorstorefront" docBase="${PLATFORM_HOME}/../ext-template/yacceleratorstorefront/web/webroot" useHttpOnly="true" disableURLRewriting="true">
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

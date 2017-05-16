@@ -1,0 +1,6 @@
+
+			<!-- 'previewwebservices' extension's context for tenant 'master' -->
+			<Context path="/previewwebservices" docBase="${PLATFORM_HOME}/../ext-content/previewwebservices/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

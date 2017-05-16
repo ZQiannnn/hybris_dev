@@ -1,0 +1,6 @@
+
+			<!-- 'personalizationwebservices' extension's context for tenant 'master' -->
+			<Context path="/personalizationwebservices" docBase="${PLATFORM_HOME}/../ext-customer-experience/personalizationwebservices/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>

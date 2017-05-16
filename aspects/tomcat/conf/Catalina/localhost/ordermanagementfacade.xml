@@ -1,0 +1,6 @@
+
+			<!-- 'ordermanagementfacade' extension's context for tenant 'master' -->
+			<Context path="/ordermanagementfacade" docBase="${PLATFORM_HOME}/../ext-commerce/ordermanagementfacade/web/webroot" >
+				<Manager pathname="" />
+				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
+			</Context>
