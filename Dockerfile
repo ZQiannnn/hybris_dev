@@ -38,6 +38,8 @@ ENV KEYSTORE_PASSWORD=123456
 ENV PLATFORM_HOME=/opt/hybris/bin/platform/
 ENV WAIT_FOR=""
 ENV JVM_ROUTE=""
+ENV CONFIG_REPO="https://qian.zhang01@hand-china.com:z18373172843@git.oschina.net/handhybris/config_test.git"
+ENV JVM_ROUTE=""
 ENV PATH="/opt/ytools:${PATH}"
 
 
