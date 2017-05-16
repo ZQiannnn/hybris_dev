@@ -27,5 +27,7 @@ if [ "$ASPECT_NAME" == "admin" ]; then
 	cd ${PLATFORM_HOME} && source setantenv.sh
 	ant -Dde.hybris.platform.ant.production.skip.build=true -buildfile $PLATFORM_HOME "${@:2}"
 else
+    cd ${PLATFORM_HOME} && source setantenv.sh
+    ant clean all
 	/opt/tomcat/bin/catalina.sh ${2:-run}
 fi

@@ -6,7 +6,7 @@ MAINTAINER ZQiannnn,<604922962@qq.com>
 
 #执行命令 安装一些软件
 RUN apk add --update libstdc++ git && \
-    rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
+   rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
 
 #安装一些软件 git
 #RUN
@@ -22,8 +22,8 @@ ADD startup.sh /opt/startup/
 
 #添加脚本的可运行权限
 RUN chmod +x /opt/startup/startup.sh && \
-    chmod +x /opt/tomcat/bin/catalina.sh && \
-    chmod +x /opt/ytools/*.sh
+   chmod +x /opt/tomcat/bin/catalina.sh && \
+   chmod +x /opt/ytools/*.sh
 
 
 #环境变量开始
