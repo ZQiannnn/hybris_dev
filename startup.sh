@@ -8,7 +8,7 @@ export ASPECT_NAME=${1:-default}
 #设置tomcat工作目录  只启动一个tomcat实例
 export CATALINA_BASE="/opt/aspects/tomcat"
 
-#以aspect来控制tomcat的conf
+#以aspect来控制hybris的conf
 export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
 
 #等待端口打开
