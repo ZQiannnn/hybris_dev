@@ -4,8 +4,8 @@ FROM marcielmj/java-8-alpine
 #坐着
 MAINTAINER ZQiannnn,<604922962@qq.com>
 
-#执行命令
-RUN apk add --update libstdc++ && \
+#执行命令 安装一些软件
+RUN apk add --update libstdc++ git && \
     rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
 
 #安装一些软件 git
