@@ -5,7 +5,7 @@ FROM marcielmj/java-8-alpine
 MAINTAINER ZQiannnn,<604922962@qq.com>
 
 #执行命令 安装一些软件
-RUN apk add --update libstdc++ git && \
+RUN apk add --update libstdc++ openssh git && \
    rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
 
 #安装一些软件 git
@@ -28,19 +28,31 @@ RUN chmod +x /opt/startup/startup.sh && \
 
 #环境变量开始
 
+#tomcat option部分
 ENV CATALINA_SECURITY_OPTS=-Djava.security.egd=file:/dev/./urandom
 ENV CATALINA_MEMORY_OPTS=-Xms2G\ -Xmx2G
+
+#端口部分
 ENV HTTP_PORT=9001
 ENV HTTPS_PORT=9002
 ENV AJP_PORT=8009
+
+#SSL证书
 ENV KEYSTORE_LOCATION=/etc/ssl/certs/hybris/keystore
 ENV KEYSTORE_PASSWORD=123456
+
+#内部环境变量
 ENV PLATFORM_HOME=/opt/hybris/bin/platform/
+
+#工具
 ENV WAIT_FOR=""
 ENV JVM_ROUTE=""
-ENV CONFIG_REPO="https://qian.zhang01@hand-china.com:z18373172843@git.oschina.net/handhybris/config_test.git"
-ENV JVM_ROUTE=""
 ENV PATH="/opt/ytools:${PATH}"
+
+#Git部分
+VOLUME ["/root/.ssh"]
+ENV CONFIG_REPO=""
+ENV CODE_REPO=""
 
 
 ENTRYPOINT ["/opt/startup/startup.sh"]

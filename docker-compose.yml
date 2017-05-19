@@ -5,3 +5,7 @@ services:
       ports:
         - "9001:9001"
         - "9002:9002"
+      environment:
+        - CONFIG_REPO=git@git.oschina.net:handhybris/config_test.git
+      volumes:
+        - ~/.ssh:/root/.ssh

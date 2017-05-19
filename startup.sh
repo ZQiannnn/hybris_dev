@@ -10,16 +10,18 @@ export CATALINA_BASE="/opt/aspects/tomcat"
 
 #以aspect来控制hybris的conf
 #export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
-ping www.baidu.com
 
 #改成通过git控制conf和extension
+
+#将 RSA 私钥 添加至本机 SSH
+cat ~/.ssh/id_rsa
 
 if [ "$CONFIG_REPO" != "" ];then
       #提供了config repo的时候，从git上拉下来 或者传到git上
       echo "Pull Config From Git :$CONFIG_REPO "
       if [ ! -d "/opt/config" ]; then
             #当/opt/config不存在的时候  两种情况：1.从未clone   2.git 仓库未初始化
-            git clone -b develop $CONFIG_REPO "/opt/config"
+            git clone  $CONFIG_REPO
             if [ "$?" -ne "0" ];then
                 echo "开始准备初始化远程config仓库"
                 #git仓库未初始化
@@ -72,3 +74,18 @@ else
    # ant clean all
    # /opt/tomcat/bin/catalina.sh ${2:-run}
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+function initConfig(){
+
+}
