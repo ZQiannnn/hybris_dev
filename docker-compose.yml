@@ -1,0 +1,7 @@
+version: '2'
+services:
+    hybris_dev:
+      image: hybris_dev:1.0
+      ports:
+        - "9001:9001"
+        - "9002:9002"

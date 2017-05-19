@@ -10,8 +10,10 @@ export CATALINA_BASE="/opt/aspects/tomcat"
 
 #以aspect来控制hybris的conf
 #export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
+ping www.baidu.com
 
 #改成通过git控制conf和extension
+
 if [ "$CONFIG_REPO" != "" ];then
       #提供了config repo的时候，从git上拉下来 或者传到git上
       echo "Pull Config From Git :$CONFIG_REPO "
