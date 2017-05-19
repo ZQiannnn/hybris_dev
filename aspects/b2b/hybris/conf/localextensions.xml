@@ -1,0 +1,39 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+  <extensions>
+    <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+    <extension name='mcc' />
+    <extension name='backoffice' />
+    <extension name='commercesearchbackoffice' />
+    <extension name='b2bcommercebackoffice' />
+    <extension name='commerceservicesbackoffice' />
+    <extension name='solrfacetsearchbackoffice' />
+    <extension name='b2badmincockpit' />
+    <extension name='powertoolsstore' />
+    <extension name='solrserver' />
+    <extension name='acceleratorwebservicesaddon' />
+    <extension name='chineseaddressaddon' />
+    <extension name='chinesecommerceorgaddressaddon' />
+    <extension name='chineseaddressbackoffice' />
+    <extension name='b2bacceleratoraddon' />
+    <extension name='commerceorgaddon' />
+    <extension name='customersupportbackoffice' />
+    <extension name='customerticketingaddon' />
+    <extension name='commerceorgsamplesaddon' />
+    <extension name='rulebuilderbackoffice' />
+    <extension name='couponbackoffice' />
+    <extension name='droolsruleengineservices' />
+    <extension name='couponfacades' />
+    <extension name='promotionenginesamplesaddon' />
+    <extension name='chinesestoreaddon' />
+
+
+
+
+    <extension name='yb2bacceleratorstorefront' />
+    <extension name='yacceleratorcockpits' />
+    <extension name='yacceleratorinitialdata' />
+    <extension name='yacceleratorfulfilmentprocess' />
+    <extension name='yaddon' />
+    <extension name='ycommercewebservices' />
+  </extensions>
+</hybrisconfig>

@@ -54,5 +54,9 @@ VOLUME ["/root/.ssh"]
 ENV CONFIG_REPO=""
 ENV CODE_REPO=""
 
+#addon部分
+ENV B2B_ADDONS=[]
+ENV B2C_ADDONS=[]
+
 
 ENTRYPOINT ["/opt/startup/startup.sh"]

@@ -11,44 +11,35 @@ export CATALINA_BASE="/opt/aspects/tomcat"
 #以aspect来控制hybris的conf
 #export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
 
-#改成通过git控制conf和extension
 
-#将 RSA 私钥 添加至本机 SSH
-cat ~/.ssh/id_rsa
-
-if [ "$CONFIG_REPO" != "" ];then
-      #提供了config repo的时候，从git上拉下来 或者传到git上
-      echo "Pull Config From Git :$CONFIG_REPO "
-      if [ ! -d "/opt/config" ]; then
-            #当/opt/config不存在的时候  两种情况：1.从未clone   2.git 仓库未初始化
-            git clone  $CONFIG_REPO
-            if [ "$?" -ne "0" ];then
-                echo "开始准备初始化远程config仓库"
-                #git仓库未初始化
-                mkdir /opt/config
-                cp /opt/aspects/${ASPECT_NAME}/hybris/conf/local.properties /opt/config
-                cp /opt/hybris/config/localextension.xml /opt/config
-                cd /opt/config
-                git init
-                git add .
-                git commit -m "first commit"
-                git remote add origin $CONFIG_REPO
-                git push -u origin develop
-                echo "成功推送 ConfigRepo ：$CONFIG_REPO 成功"
-            else
-                #克隆成功
-                echo "克隆ConfigRepo ：$CONFIG_REPO 成功"
-            fi
-      else
-            echo "更新config"
-            cd /opt/config
-            git pull
-      fi
-else
-    #没有提供CONFIG_REPO的时候直接用自带的配置文件
-    echo "使用自带的config文件"
-    export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
+ #当提供了任意一个repo ，却没有提供ssh key的时候 ，认为入参无效
+if [ ! -f "~/.ssh/id_rsa" ] && ([ "$CONFIG_REPO" != "" ] || [ "$CODE_REPO" != "" ]) ; then
+    echo "请提供相应的SSH Key来连接Git 服务器"
+    exit
 fi
+
+#当不提供两个Repo的时候，默认为演示环境
+demo="false"
+if [ "$CONFIG_REPO" = "" ] && [ "$CODE_REPO" = "" ] ; then
+    demo="true"
+fi
+echo $demo
+
+#当不为演示环境的时候，必须提供出两个
+if [ $demo = "false" ] && ([ "$CONFIG_REPO" = "" ] || [ "$CODE_REPO" = "" ]) ;then
+    echo "非演示环境必须提供两个Git Repo"
+fi
+
+
+#初始化Hybris Config，从Git或默认中读取
+initConfig
+
+#初始化code
+initCode
+
+#设置addon
+initAddons
+
 
 #阻塞直至等待端口打开
 yWaitForPort.sh $WAIT_FOR
@@ -87,5 +78,48 @@ fi
 
 
 function initConfig(){
+    if [ "$CONFIG_REPO" != "" ];then
+      #提供了config repo的时候，从git上拉下来 或者传到git上
+      echo "Pull Config From Git :$CONFIG_REPO "
+      if [ ! -d "/opt/config" ]; then
+            #当/opt/config不存在的时候  两种情况：1.从未clone   2.git 仓库未初始化
+            #克隆至临时目录
+            git clone -b develop  $CONFIG_REPO "/opt/config"
+            if [ "$?" -ne "0" ];then
+                echo "开始准备初始化远程config仓库"
+                #git仓库未初始化
+                mkdir /opt/config
+                cp /opt/aspects/${ASPECT_NAME}/hybris/conf/local.properties /opt/config
+                cp /opt/aspects/${ASPECT_NAME}/hybris/conf/localextensions.xml /opt/config
+                cd /opt/config
+                git init
+                git add .
+                git commit -m "first commit"
+                git remote add origin $CONFIG_REPO
+                git push -u origin develop
+                echo "成功推送 ConfigRepo ：$CONFIG_REPO 成功"
+            else
+                #克隆成功
+                echo "克隆ConfigRepo ：$CONFIG_REPO 成功"
+            fi
+      else
+            echo "更新config"
+            cd /opt/config
+            git pull
+      fi
+    else
+        #此时为演示环境，将标准的localextension.xml和local.properties拷贝到/opt/config
+        echo "使用自带的config文件"
+        cp /opt/aspects/${ASPECT_NAME}/hybris/conf/local.properties /opt/config
+        cp /opt/aspects/${ASPECT_NAME}/hybris/conf/localextensions.xml /opt/config
 
+    fi
+}
+
+function initCode(){
+    echo "初始化CodeRepo：$CODE_REPO"
+}
+
+function initAddons(){
+    echo "开始Addon的设置：$B2B_ADDONS $B2C_ADDONS"
 }
