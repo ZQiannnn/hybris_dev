@@ -23,10 +23,10 @@ ADD startup.sh /opt/startup/
 #添加脚本的可运行权限
 RUN chmod +x /opt/startup/startup.sh && \
    chmod +x /opt/tomcat/bin/catalina.sh && \
-   chmod +x /opt/ytools/*.sh
-   chmod +x /opt/aspects/b2b/addons.sh
-   chmod +x /opt/aspects/b2b2c/addons.sh
-   chmod +x /opt/aspects/b2c/addons.sh
+   chmod +x /opt/ytools/*.sh  && \
+   chmod +x /opt/aspects/b2b/hybris/conf/addons.sh  && \
+   chmod +x /opt/aspects/b2b2c/hybris/conf/addons.sh  && \
+   chmod +x /opt/aspects/b2c/hybris/conf/addons.sh
 
 
 #环境变量开始

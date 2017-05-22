@@ -130,7 +130,7 @@ function initConfig(){
 
 function initAddons(){
     echo "开始Addon的设置：$B2B_ADDONS $B2C_ADDONS"
-    cd /opt/aspects/${ASPECT_NAME} && ./addons.sh
+    cd /opt/aspects/${ASPECT_NAME}/hybris/conf && ./addons.sh
 }
 
 #设置tomcat运行参数
@@ -174,7 +174,7 @@ initCode $demo;
 initConfig
 
 #设置addon
-initAddons
+initAddons $demo;
 
 
 #阻塞直至等待端口打开
@@ -200,6 +200,10 @@ else
 
     cd ${PLATFORM_HOME} && source setantenv.sh
     ant clean all
+    #如果没有初始化则进行初始化
+    if [ ! -d /opt/hybris/data/hsqldb ]; then
+        ant initialize -Dtenant=master
+    fi
     /opt/tomcat/bin/catalina.sh ${2:-run}
 fi
 
