@@ -70,7 +70,7 @@ production.js" >> .gitignore
             git add .
             git commit -m "first commit"
             git remote add origin $CODE_REPO
-            git push -u origin develop
+            git push -u origin master
             echo "成功推送 CodeRepo ：$CODE_REPO 成功"
         fi
         #mkdir /opt/hybris/custom
