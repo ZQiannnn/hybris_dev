@@ -188,7 +188,7 @@ else
     echo "开始进行Hybris设置"
 
     cd ${PLATFORM_HOME} && source setantenv.sh
-    cat /opt/hybris/config/localextension.xml
+    cat /opt/hybris/config/localextensions.xml
     ant clean all
 
     /opt/tomcat/bin/catalina.sh ${2:-run}
