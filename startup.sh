@@ -118,7 +118,9 @@ function initConfig(){
 
     fi
 
-    cp -R /opt/config /opt/hybris/config
+    cp -R /opt/config/. /opt/hybris/config
+    ls /opt/hybris/config
+    ls /opt/hybris
 }
 
 

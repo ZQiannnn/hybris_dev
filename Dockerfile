@@ -18,6 +18,8 @@ RUN apk add --update libstdc++ openssh git && \
 
 ADD binaries/ /opt/
 
+ADD binaries/secrets/keystore /etc/ssl/certs/hybris/keystore
+
 
 #考虑到镜像的大小以及code的持久，把bin放到容器外部
 VOLUME ["/opt/hybris/bin/custom"]
