@@ -130,6 +130,7 @@ function initConfig(){
 
 function initAddons(){
     echo "开始Addon的设置：$B2B_ADDONS $B2C_ADDONS"
+    cd /opt/aspects/${ASPECT_NAME} && ./addons.sh
 }
 
 #设置tomcat运行参数

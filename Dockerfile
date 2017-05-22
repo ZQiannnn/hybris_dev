@@ -24,6 +24,9 @@ ADD startup.sh /opt/startup/
 RUN chmod +x /opt/startup/startup.sh && \
    chmod +x /opt/tomcat/bin/catalina.sh && \
    chmod +x /opt/ytools/*.sh
+   chmod +x /opt/aspects/b2b/addons.sh
+   chmod +x /opt/aspects/b2b2c/addons.sh
+   chmod +x /opt/aspects/b2c/addons.sh
 
 
 #环境变量开始
