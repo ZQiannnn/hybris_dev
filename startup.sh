@@ -199,10 +199,9 @@ else
     cp /opt/config/localextensions.xml /opt/hybris/config/localextensions.xml
 
     cd ${PLATFORM_HOME} && source setantenv.sh
-   # ant clean all
-   # /opt/tomcat/bin/catalina.sh ${2:-run}
+    ant clean all
+    /opt/tomcat/bin/catalina.sh ${2:-run}
 fi
-
 
 
 

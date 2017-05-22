@@ -1,11 +1,23 @@
 version: '2'
 services:
-    hybris:
+    b2b:
       image: hybris_dev:1.0
       ports:
         - "9001:9001"
         - "9002:9002"
       volumes:
         - ~/.ssh:/root/.ssh
-      environment:
-        - B2B_ADDONS=chineseaddressaddon,chinesecommerceorgaddressaddon,b2bacceleratoraddon,commerceorgaddon,promotionenginesamplesaddon,chinesestoreaddon,commerceorgsamplesaddon,customerticketingaddon
+    b2c:
+          image: hybris_dev:1.0
+          ports:
+            - "9011:9001"
+            - "9012:9002"
+          volumes:
+            - ~/.ssh:/root/.ssh
+    b2b2c:
+          image: hybris_dev:1.0
+          ports:
+            - "9021:9001"
+            - "9022:9002"
+          volumes:
+            - ~/.ssh:/root/.ssh
