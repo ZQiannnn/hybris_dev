@@ -117,6 +117,8 @@ function initConfig(){
         cp /opt/aspects/${ASPECT_NAME}/hybris/conf/localextensions.xml /opt/config
 
     fi
+
+    cp -R /opt/config /opt/hybris/config
 }
 
 
@@ -136,6 +138,7 @@ export CATALINA_BASE="/opt/aspects/tomcat"
 
 #以aspect来控制hybris的conf
 #export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
+
 
  #当提供了任意一个repo ，却没有提供ssh key的时候 ，认为入参无效
 if [ ! -f ~/.ssh/id_rsa ] && ([ "$CONFIG_REPO" != "" ] || [ "$CODE_REPO" != "" ]) ; then
@@ -183,19 +186,12 @@ if [ "$ASPECT_NAME" == "admin" ]; then
 	ant -Dde.hybris.platform.ant.production.skip.build=true -buildfile $PLATFORM_HOME "${@:2}"
 else
     echo "开始进行Hybris设置"
-    #将git clone下来的config复制到hybris底下
-    cp /opt/config/local.properties /opt/hybris/config/local.properties
-    cp /opt/config/localextensions.xml /opt/hybris/config/localextensions.xml
 
-    cat /opt/hybris/config/localextensions.xml
+    cd ${PLATFORM_HOME} && source setantenv.sh
+    cat /opt/hybris/config/localextension.xml
+    ant clean all
 
-#    cd ${PLATFORM_HOME} && source setantenv.sh
-#    ant clean all
-#    #如果没有初始化则进行初始化
-#    if [ ! -d /opt/hybris/data/hsqldb ]; then
-#        ant initialize -Dtenant=master
-#    fi
-#    /opt/tomcat/bin/catalina.sh ${2:-run}
+    /opt/tomcat/bin/catalina.sh ${2:-run}
 fi
 
 

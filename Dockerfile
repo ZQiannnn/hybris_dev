@@ -13,7 +13,15 @@ RUN apk add --update libstdc++ openssh git && \
 
 #复制文件到镜像内
 #拷贝Hybris源代码
+
+#RUN mkdir /opt/hybris/
+
 ADD binaries/ /opt/
+
+
+#考虑到镜像的大小以及code的持久，把bin放到容器外部
+VOLUME ["/opt/hybris/bin/custom"]
+#VOLUME ["/opt/hybris/config"]
 
 ADD aspects /opt/aspects
 
