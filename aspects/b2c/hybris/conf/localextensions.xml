@@ -1,6 +1,7 @@
 <hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
   <extensions>
     <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+    <path dir='${HYBRIS_BIN_DIR}/custom/hep' autoload='true' />
     <extension name='mcc' />
     <extension name='backoffice' />
     <extension name='commercesearchbackoffice' />
@@ -41,12 +42,5 @@
     <extension name='stocknotificationaddon' />
     <extension name='chineseproductsharingaddon' />
 
-
-    <extension name='yacceleratorcockpits' />
-    <extension name='yacceleratorinitialdata' />
-    <extension name='yacceleratorstorefront' />
-    <extension name='yaddon' />
-    <extension name='ycommercewebservices' />
-    <extension name='yacceleratorfulfilmentprocess' />
   </extensions>
 </hybrisconfig>
