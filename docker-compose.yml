@@ -7,3 +7,5 @@ services:
         - "9002:9002"
       volumes:
         - ~/.ssh:/root/.ssh
+      environment:
+        - B2B_ADDONS=chineseaddressaddon,chinesecommerceorgaddressaddon,b2bacceleratoraddon,commerceorgaddon,promotionenginesamplesaddon,chinesestoreaddon,commerceorgsamplesaddon,customerticketingaddon
