@@ -8,19 +8,19 @@ services:
       volumes:
         - ~/.ssh:/root/.ssh
       command: b2b
-    b2c:
-          image: hybris_dev:1.0
-          ports:
-            - "9011:9001"
-            - "9012:9002"
-          volumes:
-            - ~/.ssh:/root/.ssh
-          command: b2c
-    b2b2c:
-          image: hybris_dev:1.0
-          ports:
-            - "9021:9001"
-            - "9022:9002"
-          volumes:
-            - ~/.ssh:/root/.ssh
-          command: b2b2c
+#    b2c:
+#      image: hybris_dev:1.0
+#      ports:
+#        - "9011:9001"
+#        - "9012:9002"
+#      volumes:
+#        - ~/.ssh:/root/.ssh
+#      command: b2c
+#    b2b2c:
+#      image: hybris_dev:1.0
+#      ports:
+#        - "9021:9001"
+#        - "9022:9002"
+#      volumes:
+#        - ~/.ssh:/root/.ssh
+#      command: b2b2c

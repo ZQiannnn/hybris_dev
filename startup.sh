@@ -27,6 +27,7 @@ function initCode(){
             cd /opt/hybris/bin/custom/hep
             touch .gitignore
             echo ".*
+\!.gitignore
 .*/
 *.build.number
 *.class
@@ -38,34 +39,26 @@ platformhome.properties
 *.xsd
 ruleset.xml
 
-/hepstorefront/resources/hepstorefront
-/hepb2bstorefront/resources/hepb2bstorefront
-/hepb2bstorefront/web/testclasses
-/hepstorefront/web/testclasses
-
 **/classes/
 **/testclasses/
 **/gensrc/
 **/addonsrc/
 **/commonwebsrc/
 **/addons/
-
 **/build/
 **/eclipsebin/
 
 **/jalo/
+\!/assistedservicestorefront/src/de/hybris/platform/cms2/jalo/
 
+/hepstorefront/resources/hepstorefront
+/hepb2bstorefront/resources/hepb2bstorefront
+/hepb2bstorefront/web/testclasses
+/hepstorefront/web/testclasses
 /hepbackoffice/resources/backoffice/hepbackoffice_bof.jar
-
 /hepstorefront/web/webroot/cmscockpit
-
 /hepstorefront/web/webroot/cockpit
-
-wro_addon.xml
-
-production.css.gz
-production.css
-production.js" >> .gitignore
+**/wro_addons.xml" >> .gitignore
             git init
             git add .
             git commit -m "first commit"
@@ -144,9 +137,6 @@ export CATALINA_BASE="/opt/aspects/tomcat"
 #以aspect来控制hybris的conf
 #export HYBRIS_OPT_CONFIG_DIR="/opt/aspects/$ASPECT_NAME/hybris/conf"
 
-cat ~/.ssh/id_rsa
-
-
  #当提供了任意一个repo ，却没有提供ssh key的时候 ，认为入参无效
 if [ ! -f ~/.ssh/id_rsa ] && ([ "$CONFIG_REPO" != "" ] || [ "$CODE_REPO" != "" ]) ; then
     echo "请提供相应的SSH Key来连接Git 服务器"
@@ -158,7 +148,6 @@ demo="false"
 if [ "$CONFIG_REPO" == "" ] && [ "$CODE_REPO" == "" ] ; then
     demo="true"
 fi
-echo $demo
 
 #当不为演示环境的时候，必须提供出两个
 if [ $demo = "false" ] && ([ "$CONFIG_REPO" == "" ] || [ "$CODE_REPO" == "" ]) ;then
@@ -198,13 +187,15 @@ else
     cp /opt/config/local.properties /opt/hybris/config/local.properties
     cp /opt/config/localextensions.xml /opt/hybris/config/localextensions.xml
 
-    cd ${PLATFORM_HOME} && source setantenv.sh
-    ant clean all
-    #如果没有初始化则进行初始化
-    if [ ! -d /opt/hybris/data/hsqldb ]; then
-        ant initialize -Dtenant=master
-    fi
-    /opt/tomcat/bin/catalina.sh ${2:-run}
+    cat /opt/hybris/config/localextensions.xml
+
+#    cd ${PLATFORM_HOME} && source setantenv.sh
+#    ant clean all
+#    #如果没有初始化则进行初始化
+#    if [ ! -d /opt/hybris/data/hsqldb ]; then
+#        ant initialize -Dtenant=master
+#    fi
+#    /opt/tomcat/bin/catalina.sh ${2:-run}
 fi
 
 
