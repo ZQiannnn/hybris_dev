@@ -7,10 +7,10 @@ services:
         - "9002:9002"
       volumes:
         - ~/.ssh:/root/.ssh
-        - ~/Work/WorkSpace/hybirs_test/hybris/bin/custom:/opt/hybris/bin/custom
+#        - ~/Work/WorkSpace/hybirs_test/hybris/bin/custom:/opt/hybris/bin/custom
         - ~/Work/WorkSpace/hybirs_test/hybris/data:/opt/hybris/data
 #        - ~/Work/WorkSpace/hybirs_test/hybris/config:/opt/hybris/config
-      command: b2b
+      command: b2c
 #    b2c:
 #      image: hybris_dev:1.0
 #      ports:
