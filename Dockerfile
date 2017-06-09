@@ -1,11 +1,11 @@
 #从精简JAVA镜像开始
-FROM marcielmj/java-8-alpine
+FROM java:openjdk-8u111-alpine
 
 #坐着
 MAINTAINER ZQiannnn,<604922962@qq.com>
 
 #执行命令 安装一些软件
-RUN apk add --update libstdc++ openssh git && \
+RUN apk add --update bash curl libstdc++ openssh git && \
    rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
 
 #安装一些软件 git
@@ -25,22 +25,25 @@ ADD binaries/ /opt/
 
 
 
-#考虑到镜像的大小以及code的持久，把bin放到容器外部
-#VOLUME ["/opt/hybris/bin/custom"]
-#VOLUME ["/opt/hybris/config"]
+#考虑到
+VOLUME ["/opt/hybris/data"]
 
 ADD aspects /opt/aspects
 
 #拷贝执行脚本
 ADD startup.sh /opt/startup/
+ADD code.sh /opt/startup/
+ADD config.sh /opt/startup/
 
 #添加脚本的可运行权限
 RUN chmod +x /opt/startup/startup.sh && \
-   chmod +x /opt/tomcat/bin/catalina.sh && \
-   chmod +x /opt/ytools/*.sh  && \
-   chmod +x /opt/aspects/b2b/hybris/conf/addons.sh  && \
-   chmod +x /opt/aspects/b2b2c/hybris/conf/addons.sh  && \
-   chmod +x /opt/aspects/b2c/hybris/conf/addons.sh
+    chmod +x /opt/startup/code.sh && \
+    chmod +x /opt/startup/config.sh && \
+    chmod +x /opt/tomcat/bin/catalina.sh && \
+    chmod +x /opt/ytools/*.sh  && \
+    chmod +x /opt/aspects/b2b/hybris/conf/addons.sh  && \
+    chmod +x /opt/aspects/b2b2c/hybris/conf/addons.sh  && \
+    chmod +x /opt/aspects/b2c/hybris/conf/addons.sh
 
 
 #环境变量开始
