@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-./test2.sh
+echo "222"

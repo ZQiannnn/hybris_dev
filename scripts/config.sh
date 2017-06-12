@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 #初始化config使用
-    CONFIG_REPO=$1
-    ASPECT_NAME=$2
+    CONFIG_REPO=$0
+    ASPECT_NAME=$1
 echo "初始化Config：$CONFIG_REPO"
 if [ "$CONFIG_REPO" != "" ];then
   #提供了config repo的时候，从git上拉下来 或者传到git上

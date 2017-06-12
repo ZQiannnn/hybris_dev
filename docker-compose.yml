@@ -3,9 +3,12 @@ services:
     b2b:
       image: hybris_dev:1.0
       ports:
-        - "9001:9001"
-        - "9002:9002"
+        - "9011:9001"
+        - "9012:9002"
+        - "8080:8080"
       volumes:
-        - ~/.ssh:/root/.ssh
-        - ~/Work/WorkSpace/hybirs_test/hybris/data:/opt/hybris/data
-      command: b2c
+        - ~/Work/WorkSpace/hybirs_test/hybris/data:/u01/hybris/data
+        - ~/Work/WorkSpace/hybirs_test/hybris/binaries:/u01/hybris/binaries
+        - ~/Work/WorkSpace/hybirs_test/hybris/jenkins_data:/u01/jenkins/jenkins_home
+      environment:
+        - HYBRIS_VERSION=6.3
