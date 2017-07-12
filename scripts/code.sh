@@ -5,8 +5,6 @@ set -e
 
 ASPECT_NAME=$1
 
-rm -rf /u01/hybris/bin/custom
-
 cd ${PLATFORM_HOME} && source setantenv.sh
 
 #生成完整的项目
