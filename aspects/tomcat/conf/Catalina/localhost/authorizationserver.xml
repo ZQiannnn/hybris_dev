@@ -1,6 +1,0 @@
-
-			<!-- 'oauth2' extension's context for tenant 'master' -->
-			<Context path="/authorizationserver" docBase="${PLATFORM_HOME}/ext/oauth2/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

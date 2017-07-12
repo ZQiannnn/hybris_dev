@@ -5,8 +5,8 @@ set -e
 
 ASPECT_NAME=$1
 
-#ls -l $HYBRIS_HOME && exit
-rm -rf $HYBRIS_HOME && mkdir -p /u01
 
-echo "开始解压对应的文件夹"
-unzip -o -d  /u01 /u01/packages/binaries/HYBRIS.zip
+ if [ ! -d /u01/hybirs ]; then
+    echo "开始解压对应的文件夹"
+    unzip -o -d  /u01 /u01/packages/binaries/HYBRIS.zip
+fi

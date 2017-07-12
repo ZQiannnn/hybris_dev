@@ -1,6 +1,0 @@
-
-			<!-- 'mcc' extension's context for tenant 'master' -->
-			<Context path="/mcc" docBase="${PLATFORM_HOME}/../ext-cockpit/mcc/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

@@ -1,6 +1,0 @@
-
-			<!-- 'mediaweb' extension's context for tenant 'master' -->
-			<Context path="/medias" docBase="${PLATFORM_HOME}/ext/mediaweb/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

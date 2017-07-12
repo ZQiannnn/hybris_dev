@@ -1,6 +1,0 @@
-
-			<!-- 'permissionswebservices' extension's context for tenant 'master' -->
-			<Context path="/permissionswebservices" docBase="${PLATFORM_HOME}/../ext-customer-experience/permissionswebservices/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

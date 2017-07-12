@@ -1,6 +1,0 @@
-
-			<!-- 'cmscockpit' extension's context for tenant 'master' -->
-			<Context path="/cmscockpit" docBase="${PLATFORM_HOME}/../ext-content/cmscockpit/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

@@ -1,6 +1,0 @@
-
-			<!-- 'tomcatembeddedserver' extension's context for tenant 'master' -->
-			<Context path="/tomcatembeddedserver" docBase="${PLATFORM_HOME}/../ext-platform-optional/tomcatembeddedserver/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>

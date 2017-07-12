@@ -1,6 +1,0 @@
-
-			<!-- 'liveeditaddon' extension's context for tenant 'master' -->
-			<Context path="/liveeditaddon" docBase="${PLATFORM_HOME}/../ext-addon/liveeditaddon/web/webroot" >
-				<Manager pathname="" />
-				<Loader platformHome="${PLATFORM_HOME}" className="de.hybris.tomcat.HybrisWebappLoader" deployName="default" />
-			</Context>
