@@ -9,15 +9,20 @@ RUN apk add --update libstdc++ git openssh-client curl unzip bash ttf-dejavu cor
    rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
 
 
-#tomcat option部分
+#####################################################################################
+#  Tomcat 部分
+#####################################################################################
 ENV CATALINA_SECURITY_OPTS=-Djava.security.egd=file:/dev/./urandom
 ENV CATALINA_MEMORY_OPTS=-Xms2G\ -Xmx2G
+#####################################################################################
+#  Tomcat 部分结束
+#####################################################################################
 
-ENV JAVA_OPTS=-Djava.awt.headless=true
 
 #####################################################################################
 #  Jenkins部分
 #####################################################################################
+ENV JAVA_OPTS=-Djava.awt.headless=true
 ENV JENKINS_HOME /u01/jenkins/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
@@ -67,13 +72,11 @@ ENV KEYSTORE_PASSWORD=123456
 #环境变量
 ENV PLATFORM_HOME=/u01/hybris/bin/platform/
 
-#Hybris版本 仅支持大版本
-ENV HYBRIS_VERSION="6.3"
 #下载好的binaries映射到容器 data持久化  jenkins数据及配置持久化
-VOLUME ["/u01/hybris/binaries","/u01/hybris/data"]
+VOLUME ["/u01/packages/binaries","/u01/hybris/data"]
 
 #工具
-ENV PATH="/u01/ytools:${PATH}"
+ENV PATH="/u01/ytools:/u01/scripts:${PATH}"
 #####################################################################################
 #  Hybris部分结束
 #####################################################################################

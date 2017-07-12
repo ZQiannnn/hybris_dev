@@ -7,8 +7,8 @@ services:
         - "9012:9002"
         - "8080:8080"
       volumes:
-        - ~/Work/WorkSpace/hybirs_test/hybris/data:/u01/hybris/data
-        - ~/Work/WorkSpace/hybirs_test/hybris/binaries:/u01/hybris/binaries
-        - ~/Work/WorkSpace/hybirs_test/hybris/jenkins_data:/u01/jenkins/jenkins_home
+        - ~/Work/WorkSpace/hybris_test/hybris/data:/u01/hybris/data
+        - ~/Work/WorkSpace/hybris_test/hybris/binaries:/u01/packages/binaries
+        - ~/Work/WorkSpace/hybris_test/hybris/jenkins_data:/u01/jenkins/jenkins_home
       environment:
         - HYBRIS_VERSION=6.3
