@@ -1,14 +1,16 @@
 version: '2'
 services:
-    b2b:
-      image: hybris_dev:1.0
+    hybris:
+      container_name:  base
+      image: zqiannnn/hybris-dev:1.0-beta
       ports:
-        - "9011:9001"
-        - "9012:9002"
-        - "8080:8080"
+        - 8001:9002
       volumes:
-        - ~/Work/WorkSpace/hybris_test/hybris/data:/u01/hybris/data
-        - ~/Work/WorkSpace/hybris_test/hybris/binaries:/u01/packages/binaries
-        - ~/Work/WorkSpace/hybris_test/hybris/jenkins_data:/u01/jenkins/jenkins_home
+#        - /Users/zhang/Work/WorkSpaces/DevOpsWorkSpace/oms-ci/ansible/dev/hybris.bootstrap/files:/opt/hybris/data
+        - /Users/zhang/Work/Resource/Hybris/6.3:/u01/packages/binaries
+        - $HOME/.ssh/:/root/.ssh
       environment:
-        - HYBRIS_VERSION=6.3
+        - CODE_REPO=https://zqian:handhand@rdc.hand-china.com/gitlab/hand-ln/oms-core.git
+        - CONFIG_REPO=https://zqian:handhand@rdc.hand-china.com/gitlab/hand-ln/oms-config.git
+        - CODE_BRANCH=develop/base
+        - CONFIG_BRANCH=develop/base

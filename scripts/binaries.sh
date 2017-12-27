@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
+#解压Hybris压缩包，并且清空相应的工程文件
 set -e
-#生成相应的工程
-
-ASPECT_NAME=$1
-
-
- if [ ! -d /u01/hybirs ]; then
-    echo "开始解压对应的文件夹"
-    unzip -o -d  /u01 /u01/packages/binaries/HYBRIS.zip
+rm -rf /opt/hybris/bin/custom
+rm -rf /opt/hybris/config
+rm -rf /opt/hybris/log
+rm -rf /opt/hybris/roles
+rm -rf /opt/cd hybris/temp
+if [ ! -d /opt/hybris/bin/platform ]; then
+    echo "开始解压HYBRIS安装包"
+    unzip -o -d  /opt /u01/packages/binaries/HYBRIS.zip
+    if [ -f /u01/packages/binaries/JREBEL.zip ]; then
+        echo "JREBEL解压"
+        unzip -o -d  /opt /u01/packages/binaries/JREBEL.zip
+    fi
+    echo "tomcat.javaoptions=-noverify -agentpath:\"/opt/jrebel/lib/libjrebel64.so\" -Drebel.disable_update=true
+tomcat.debugjavaoptions=-noverify -agentpath:\"/opt/jrebel/libjrebel64.so\" -Drebel.disable_update=true ">> /opt/hybris/bin/platform/project.propertie
 fi
-
-rm -rf /u01/hybris/bin/custom
-rm -rf /u01/hybris/config
-rm -rf /u01/hybris/data
-rm -rf /u01/hybris/log
-rm -rf /u01/hybris/roles
-rm -rf /u01/hybris/temp

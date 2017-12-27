@@ -1,92 +1,44 @@
-#从精简JAVA镜像开始
-FROM java:openjdk-8u111-alpine
+FROM openjdk:8u151-jdk-slim
 
 #作者
 MAINTAINER ZQiannnn,<604922962@qq.com>
 
 #执行命令 安装一些软件
-RUN apk add --update libstdc++ git openssh-client curl unzip bash ttf-dejavu coreutils tini && \
-   rm -rf /etc/apk/keys/sgerrand.rsa.pub /tmp/* /var/cache/apk/*
+RUN apt-get update && apt-get install -y --no-install-recommends curl openssh-client git gettext procps net-tools \
+	&& rm -rf /var/lib/apt/lists/*
+
+ENV TINI_VERSION 0.14.0
+ENV TINI_SHA 6c41ec7d33e857d4779f14d9c74924cab0c7973485d2972419a3b7c7620ff5fd
+
+# Use tini as subreaper in Docker container to adopt zombie processes
+RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static-amd64 -o /bin/tini && chmod +x /bin/tini \
+  && echo "$TINI_SHA  /bin/tini" | sha256sum -c -
 
 
-#####################################################################################
-#  Tomcat 部分
-#####################################################################################
-ENV CATALINA_SECURITY_OPTS=-Djava.security.egd=file:/dev/./urandom
-ENV CATALINA_MEMORY_OPTS=-Xms2G\ -Xmx2G
-#####################################################################################
-#  Tomcat 部分结束
-#####################################################################################
-
-
-#####################################################################################
-#  Jenkins部分
-#####################################################################################
-ENV JAVA_OPTS=-Djava.awt.headless=true
-ENV JENKINS_HOME /u01/jenkins/jenkins_home
-ENV JENKINS_SLAVE_AGENT_PORT 50000
-
-VOLUME /u01/jenkins/jenkins_home
-RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
-
-ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.46.3}
-ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
-
-# jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=00424d3c851298b29376d1d09d7d3578a2bc4a03acf3914b317c47707cd5739a
-
-# Can be used to customize where jenkins.war get downloaded from
-ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
-
-
-# could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
-# see https://github.com/docker/docker/issues/8331
-RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
-  && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
-
-ENV JENKINS_UC https://updates.jenkins.io
-
-
-# for main web interface:
-EXPOSE 8080
-
-# will be used by attached slave agents:
-EXPOSE 50000
-
-#####################################################################################
-#  Jenkins部分结束
-#####################################################################################
 
 #####################################################################################
 #  Hybris部分开始
 #####################################################################################
-ENV HTTP_PORT=9001
-ENV HTTPS_PORT=9002
-ENV AJP_PORT=8009
-
-#Tomcat版 SSL证书
-ENV KEYSTORE_LOCATION=/u01/secrets/keystore
-ENV KEYSTORE_PASSWORD=123456
+EXPOSE 9001
+EXPOSE 9002
+EXPOSE 8983
 
 #环境变量
-ENV PLATFORM_HOME=/u01/hybris/bin/platform/
+ENV PLATFORM_HOME=/opt/hybris/bin/platform/
+
+ENV PATH $PLATFORM_HOME/apache-ant-1.9.1/bin:$PATH
 
 #下载好的binaries映射到容器 data持久化  jenkins数据及配置持久化
-VOLUME ["/u01/packages/binaries","/u01/hybris/data"]
+VOLUME ["/u01/packages/binaries","/opt/hybris/data","/root/.ssh"]
 
-#工具
-ENV PATH="/u01/ytools:/u01/scripts:${PATH}"
+
 #####################################################################################
 #  Hybris部分结束
 #####################################################################################
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY scripts /root/scripts
+RUN mv /root/scripts/*.sh /usr/local/bin/
+COPY updateRunningSystem.config /opt/hybris/updateRunningSystem.config
 
 
-
-COPY binaries/ /u01/
-COPY aspects /u01/aspects
-COPY docker-entrypoint.sh /usr/local/bin/
-COPY scripts /u01/scripts/
-
-
-ENTRYPOINT ["/sbin/tini","--","docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]

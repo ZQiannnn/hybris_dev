@@ -1,54 +1,20 @@
 #!/usr/bin/env bash
-
 set -e
-#生成相应的工程
 
-ASPECT_NAME=$1
+echo ${CODE_REPO}
+echo ${CODE_BRANCH}
+#初始化code用
+if [ x${CODE_REPO} != x ]; then
+    if [ ! -d /opt/hybris/bin/custom/hep ]; then
+        #先clone develop分支
+        BRANCH=" -b ${CODE_BRANCH}"
+        git clone ${BRANCH} ${CODE_REPO}  /opt/hybris/bin/custom/hep
 
-cd ${PLATFORM_HOME} && source setantenv.sh
-
-#生成完整的项目
-ant modulegen -Dinput.module=accelerator -Dinput.name=hep -Dinput.package=com.hep
-
-if [ "$ASPECT_NAME" == "b2b2c" ];then
-    # b2b2c生成额外的工程
-    ant extgen -Dinput.template=yacceleratorstorefront -Dinput.name=hepb2bstorefront -Dinput.package=com.hep.b2b
-    mv /u01/hybris/bin/custom/hepb2bstorefront /u01/hybris/bin/custom/hep
+        if [ "$?" == "0" ]; then
+               echo "Clone  $BRANCH $CODE_REPO  成功"
+        fi
+    else
+        #工程存在  更新工程
+        cd /opt/hybris/bin/custom/hep && git pull
+    fi
 fi
-
-#生成gitignore文件
-cd /u01/hybris/bin/custom/hep
-touch .gitignore
-            echo ".*
-\!.gitignore
-.*/
-*.build.number
-*.class
-
-*-testclasses.xml
-build.xml
-external-dependencies.xml
-platformhome.properties
-*.xsd
-ruleset.xml
-
-**/classes/
-**/testclasses/
-**/gensrc/
-**/addonsrc/
-**/commonwebsrc/
-**/addons/
-**/build/
-**/eclipsebin/
-
-**/jalo/
-\!/assistedservicestorefront/src/de/hybris/platform/cms2/jalo/
-
-/hepstorefront/resources/hepstorefront
-/hepb2bstorefront/resources/hepb2bstorefront
-/hepb2bstorefront/web/testclasses
-/hepstorefront/web/testclasses
-/hepbackoffice/resources/backoffice/hepbackoffice_bof.jar
-/hepstorefront/web/webroot/cmscockpit
-/hepstorefront/web/webroot/cockpit
-**/wro_addons.xml" >> .gitignore
