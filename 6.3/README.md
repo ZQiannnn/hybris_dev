@@ -1,5 +1,5 @@
-# hybris-dev
-## 基于Docker快速生成HYBRIS开发环境
+# hybris-dev:hybris-6.3
+## 基于Docker快速生成HYBRIS6.3开发环境
 
 ### Environment
 ```
@@ -13,7 +13,6 @@ CONFIG_BRANCH: Config Git Branch
 ### Volume
 ```
 /opt/hybris/data: Hybris Persistent Data
-/u01/packages/binaries: Hybris Binaries Data (You should provider HYBRIS.zip,JREBEL.zip in this path)
 /root/.ssh: If you use git protocol，you provide your ssh file in this path
 ```
 
@@ -24,12 +23,11 @@ version: '2'
 services:
     hybris:
       container_name:  base
-      image: zqiannnn/hybris-dev:1.0-beta
+      image: zqiannnn/hybris-dev:hybris-6.3
       ports:
         - 8001:9002
       volumes:
         - /path/to/data:/opt/hybris/data
-        - /path/to/binaries:/u01/packages/binaries
 #        - $HOME/.ssh/:/root/.ssh
       environment:
         - CODE_REPO=https://xxx/xx.git
@@ -39,7 +37,6 @@ services:
         - CONFIG_BRANCH=develop
 ```
 > Kubernetes
-
 ```
 ---
 kind: Deployment
@@ -64,7 +61,7 @@ spec:
     spec:
       containers:
       - name: {{ name }}
-        image: zqiannnn/hybris-dev:1.0
+        image: zqiannnn/hybris-dev:hybris-6.3
         imagePullPolicy: Always
         env:
         - name: CODE_REPO
@@ -94,8 +91,6 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /opt/hybris/data
-        - name: binaries-volume
-          mountPath: /u01/packages/binaries
         - name: lt-config
           mountPath: /etc/localtime
         - name: tz-config
@@ -104,15 +99,14 @@ spec:
       - name: data-volume
         persistentVolumeClaim:
           claimName: hybris-pvc
-      - name: binaries-volume
-        persistentVolumeClaim:
-          claimName: hybris-binaries-pvc
       - name: lt-config
         hostPath:
           path: /usr/share/zoneinfo/Asia/Shanghai
       - name: tz-config
         hostPath:
           path: /etc/timezone
+
+
 ```
 
 
