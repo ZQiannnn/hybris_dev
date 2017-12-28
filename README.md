@@ -18,8 +18,7 @@ CONFIG_BRANCH: Config Git Branch
 ```
 
 ### Demo
-**Docke-Compose:**
-> Base Uase
+> Docke-Compose
 ```
 version: '2'
 services:
@@ -38,6 +37,110 @@ services:
         - CODE_DIRECTORY=hep
         - CODE_BRANCH=develop
         - CONFIG_BRANCH=develop
+```
+> Kubernetes
+```
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  name: {{ name }}
+  namespace: hybris-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ name }}
+  template:
+    metadata:
+      labels:
+        name: {{ name }}
+    spec:
+      containers:
+      - name: {{ name }}
+        image: zqiannnn/hybris-dev:1.0
+        env:
+        - name: CODE_REPO
+          value: https://xxx/xxx.git
+        - name: CONFIG_REPO
+          value: https://xxx/xxx.git
+        - name: CODE_BRANCH
+          value: xxx
+        - name: CONFIG_BRANCH
+          value: xxx
+        - name: BUILD_NUMBER
+          value: "0"
+        ports:
+        - containerPort: 9002
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /hac     # Or Other Valid Url
+            port: 9002
+          initialDelaySeconds: 300
+          periodSeconds: 10
+        volumeMounts:
+        - name: data-volume
+          mountPath: /opt/hybris/data
+        - name: binaries-volume
+          mountPath: /u01/packages/binaries
+        - name: lt-config
+          mountPath: /etc/localtime
+        - name: tz-config
+          mountPath: /etc/timezone
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: hybris-pvc
+      - name: binaries-volume
+        persistentVolumeClaim:
+          claimName: hybris-binaries-pvc
+      - name: lt-config
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
+      - name: tz-config
+        hostPath:
+          path: /etc/timezone
+
+---
+# ------------------- Hybris Service ------------------- #
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ name }}-service
+  namespace: hybris-app
+spec:
+  ports:
+    - port: 9002
+      targetPort: 9002
+  selector:
+    name: oms-{{ name }}
+# ------------------- Hybris Ingress ------------------- #
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ name }}-ingress
+  namespace: hybris-app
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/app-root: "hac" # Your Hac Root
+spec:
+  tls:
+    - hosts:
+      - {{ name }}.k8s #Your Domain
+    - secretName: kubernetes-dashboard-certs #Your Tls Secret
+  rules:
+  - host: {{ name }}.k8s
+    http:
+      paths:
+      - backend:
+          serviceName: {{ name }}-service
+          servicePort: 9002
+
+
 ```
 
 
