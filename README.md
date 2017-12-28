@@ -51,6 +51,11 @@ spec:
   selector:
     matchLabels:
       name: {{ name }}
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 3
   template:
     metadata:
       labels:
@@ -59,24 +64,29 @@ spec:
       containers:
       - name: {{ name }}
         image: zqiannnn/hybris-dev:1.0
+        imagePullPolicy: Always
         env:
         - name: CODE_REPO
-          value: https://xxx/xxx.git
+          value: https://xx.git
         - name: CONFIG_REPO
-          value: https://xxx/xxx.git
+          value: https://xx.git
         - name: CODE_BRANCH
-          value: xxx
+          value: develop/{{ name }}
         - name: CONFIG_BRANCH
-          value: xxx
+          value: develop/{{ name }}
+        - name: CODE_DIRECTORY
+          value: hep
         - name: BUILD_NUMBER
-          value: "0"
+          value: "{{ build }}"
         ports:
         - containerPort: 9002
+          protocol: TCP
+        - containerPort: 7800
           protocol: TCP
         readinessProbe:
           httpGet:
             scheme: HTTPS
-            path: /hac     # Or Other Valid Url
+            path: /hac
             port: 9002
           initialDelaySeconds: 300
           periodSeconds: 10
@@ -102,43 +112,6 @@ spec:
       - name: tz-config
         hostPath:
           path: /etc/timezone
-
----
-# ------------------- Hybris Service ------------------- #
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ name }}-service
-  namespace: hybris-app
-spec:
-  ports:
-    - port: 9002
-      targetPort: 9002
-  selector:
-    name: oms-{{ name }}
-# ------------------- Hybris Ingress ------------------- #
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: {{ name }}-ingress
-  namespace: hybris-app
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/secure-backends: "true"
-    nginx.ingress.kubernetes.io/app-root: "hac" # Your Hac Root
-spec:
-  tls:
-    - hosts:
-      - {{ name }}.k8s #Your Domain
-    - secretName: kubernetes-dashboard-certs #Your Tls Secret
-  rules:
-  - host: {{ name }}.k8s
-    http:
-      paths:
-      - backend:
-          serviceName: {{ name }}-service
-          servicePort: 9002
 
 
 ```
