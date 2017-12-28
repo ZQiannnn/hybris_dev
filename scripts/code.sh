@@ -8,7 +8,7 @@ if [ x${CODE_REPO} != x ]; then
     if [ ! -d /opt/hybris/bin/custom/hep ]; then
         #先clone develop分支
         BRANCH=" -b ${CODE_BRANCH}"
-        git clone ${BRANCH} ${CODE_REPO}  /opt/hybris/bin/custom/hep
+        git clone ${BRANCH} ${CODE_REPO}  /opt/hybris/bin/custom/${CODE_DIRECTORY}
 
         if [ "$?" == "0" ]; then
                echo "Clone  $BRANCH $CODE_REPO  成功"

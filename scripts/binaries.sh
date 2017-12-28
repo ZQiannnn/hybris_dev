@@ -13,7 +13,8 @@ if [ ! -d /opt/hybris/bin/platform ]; then
     if [ -f /u01/packages/binaries/JREBEL.zip ]; then
         echo "JREBEL解压"
         unzip -o -d  /opt /u01/packages/binaries/JREBEL.zip
-    fi
-    echo "tomcat.javaoptions=-noverify -agentpath:\"/opt/jrebel/lib/libjrebel64.so\" -Drebel.disable_update=true
+        echo "tomcat.javaoptions=-noverify -agentpath:\"/opt/jrebel/lib/libjrebel64.so\" -Drebel.disable_update=true
 tomcat.debugjavaoptions=-noverify -agentpath:\"/opt/jrebel/libjrebel64.so\" -Drebel.disable_update=true ">> /opt/hybris/bin/platform/project.propertie
+    fi
+
 fi
