@@ -35,6 +35,7 @@ services:
         - CODE_DIRECTORY=hep
         - CODE_BRANCH=develop
         - CONFIG_BRANCH=develop
+      privileged:true
 ```
 > Kubernetes
 ```

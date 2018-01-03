@@ -3,7 +3,8 @@ source code.sh
 source config.sh
 
 export DOCKER_CONTAINER_IP=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
-echo "\ncluster.broadcast.method.jgroups.tcp.bind_addr=$DOCKER_CONTAINER_IP" >> /opt/hybris/config/local.properties
+echo "
+cluster.broadcast.method.jgroups.tcp.bind_addr=$DOCKER_CONTAINER_IP" >> /opt/hybris/config/local.properties
 
 source clean.sh
 
