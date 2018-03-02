@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+set -e
 
 #解压Hybris压缩包，并且清空相应的工程文件
-set -e
 rm -rf /opt/hybris/bin/custom
 rm -rf /opt/hybris/config
 rm -rf /opt/hybris/log
