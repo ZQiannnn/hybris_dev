@@ -55,6 +55,7 @@ VOLUME ["/opt/hybris/data","/root/.ssh"]
 #  Hybris部分结束
 #####################################################################################
 COPY scripts /root/scripts
+COPY jgroups /opt/hybris/jgroups
 RUN mv /root/scripts/*.sh /usr/local/bin/
 COPY updateRunningSystem.config /opt/hybris/updateRunningSystem.config
 
