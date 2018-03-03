@@ -7,7 +7,7 @@ source config.sh
 
 sed -i 's/clustermode=false/clustermode=true/g' /opt/hybris/bin/platform/project.properties
 sed -i 's/cluster.nodes.autodiscovery=false/cluster.nodes.autodiscovery=true/g' /opt/hybris/bin/platform/project.properties
-sed -i 's/cluster.broadcast.method.jgroups.configuration=jgroups-udp.xml/cluster.broadcast.method.jgroups.configuration=/opt/hybris/jgroups/jgroups-udp.xml/g' /opt/hybris/bin/platform/project.properties
+#sed -i 's/cluster.broadcast.method.jgroups.configuration=jgroups-udp.xml/cluster.broadcast.method.jgroups.configuration=jgroups-udp.xml/g' /opt/hybris/bin/platform/project.properties
 
 source clean.sh
 
