@@ -61,4 +61,4 @@ COPY updateRunningSystem.config /opt/hybris/updateRunningSystem.config
 
 
 ENTRYPOINT ["/tini", "--"]
-CMD ["init.sh"]
+CMD ["init-tcp.sh"]
