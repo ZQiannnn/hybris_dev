@@ -4,6 +4,7 @@ FROM openjdk:8u151-jdk-slim
 MAINTAINER ZQiannnn,<604922962@qq.com>
 
 #执行命令 安装一些软件
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y --no-install-recommends curl openssh-client git gettext procps net-tools \
 	&& rm -rf /var/lib/apt/lists/*
 
